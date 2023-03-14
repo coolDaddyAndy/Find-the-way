@@ -10,18 +10,66 @@ import MapKit
 import CoreLocation
 
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     private let mapView: MKMapView = {
        let map = MKMapView()
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
     }()
+    
+    private let addAdressButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("addAdressButton", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private let routeButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("routeButton", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private let resetButton:UIButton = {
+       let button = UIButton()
+        button.setTitle("resetButton", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
     
         setConstraints()
+        addAdressButtonTarget()
+        routeButtonTarget()
+        resetButtonTarget()
+    }
+    
+    private func addAdressButtonTarget() {
+        addAdressButton.addTarget(self, action: #selector(addAdressButtonTapped), for: .touchUpInside)
+    }
+    
+    private func routeButtonTarget() {
+        addAdressButton.addTarget(self, action: #selector(routeButtonTapped), for: .touchUpInside)
+    }
+    
+    private func resetButtonTarget() {
+        addAdressButton.addTarget(self, action: #selector(reseetButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func addAdressButtonTapped() {
+        
+    }
+    
+    @objc func routeButtonTapped() {
+        
+    }
+    
+    @objc func reseetButtonTapped() {
+        
     }
 }
 
