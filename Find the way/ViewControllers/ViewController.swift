@@ -63,7 +63,7 @@ final class ViewController: UIViewController {
     }
     
     @objc func addAdressButtonTapped() {
-        print ("addAdressButtonTapped")
+        
     }
     
     @objc func routeButtonTapped() {
@@ -111,7 +111,6 @@ extension ViewController {
           resetButton.heightAnchor.constraint(equalToConstant: 60),
           resetButton.widthAnchor.constraint(equalToConstant: 60)
         ])
-        
     }
 }
 
