@@ -12,6 +12,7 @@
 		FD2EBFC229C09D5400E48C1E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2EBFC129C09D5400E48C1E /* ViewController.swift */; };
 		FD2EBFC729C09D5600E48C1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD2EBFC629C09D5600E48C1E /* Assets.xcassets */; };
 		FD2EBFCA29C09D5600E48C1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD2EBFC829C09D5600E48C1E /* LaunchScreen.storyboard */; };
+		FD7D2D7529C2613400864F73 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7D2D7429C2613400864F73 /* MainMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		FD2EBFC629C09D5600E48C1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD2EBFC929C09D5600E48C1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD2EBFCB29C09D5600E48C1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD7D2D7429C2613400864F73 /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,11 +56,28 @@
 		FD2EBFBC29C09D5400E48C1E /* Find the way */ = {
 			isa = PBXGroup;
 			children = (
-				FDC065E529C0A77000C9D81F /* ViewControllers */,
 				FDC065E129C0A33400C9D81F /* Application  */,
+				FD7D2D7329C2610E00864F73 /* Views */,
+				FDC065E529C0A77000C9D81F /* ViewControllers */,
 				FDC065E429C0A54B00C9D81F /* Resources */,
 			);
 			path = "Find the way";
+			sourceTree = "<group>";
+		};
+		FD7D2D7329C2610E00864F73 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FD7D2D7629C263C000864F73 /* UIView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FD7D2D7629C263C000864F73 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				FD7D2D7429C2613400864F73 /* MainMapView.swift */,
+			);
+			path = UIView;
 			sourceTree = "<group>";
 		};
 		FDC065E129C0A33400C9D81F /* Application  */ = {
@@ -160,6 +179,7 @@
 			files = (
 				FD2EBFC229C09D5400E48C1E /* ViewController.swift in Sources */,
 				FD2EBFBE29C09D5400E48C1E /* AppDelegate.swift in Sources */,
+				FD7D2D7529C2613400864F73 /* MainMapView.swift in Sources */,
 				FD2EBFC029C09D5400E48C1E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
