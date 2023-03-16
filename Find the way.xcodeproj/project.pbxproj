@@ -37,12 +37,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FD0F22C629C3362500BA0116 /* AlertManager */ = {
+		FD0F22C929C3548600BA0116 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				FD0F22C729C3364800BA0116 /* Alert.swift */,
 			);
-			path = AlertManager;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		FD2EBFB129C09D5400E48C1E = {
@@ -65,8 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				FDC065E129C0A33400C9D81F /* Application  */,
-				FD0F22C629C3362500BA0116 /* AlertManager */,
 				FDC065E529C0A77000C9D81F /* ViewControllers */,
+				FD0F22C929C3548600BA0116 /* Extension */,
 				FDC065E429C0A54B00C9D81F /* Resources */,
 			);
 			path = "Find the way";
