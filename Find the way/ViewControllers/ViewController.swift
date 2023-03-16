@@ -53,7 +53,7 @@ final class ViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "routeButton"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        //        button.isHidden = true
+        button.isHidden = true
         return button
     }()
     
@@ -61,10 +61,11 @@ final class ViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "resetButton"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        //        button.isHidden = true
+        button.isHidden = true
         return button
     }()
     
+    private var annotationArray = [MKPointAnnotation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +74,8 @@ final class ViewController: UIViewController {
         addAdressButtonTarget()
         routeButtonTarget()
         resetButtonTarget()
+        
+        mapView.delegate = self
     }
     
     private func addAdressButtonTarget() {
@@ -84,25 +87,90 @@ final class ViewController: UIViewController {
     }
     
     private func resetButtonTarget() {
-        resetButton.addTarget(self, action: #selector(reseetButtonTapped), for: .touchUpInside)
+        resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
     }
     
     @objc private func addAdressButtonTapped() {
-        alertAddAdress(title: "Next point", placeholder: "Add adress") { text in
-            print (text)
+        alertAddAdress(title: "Next point", placeholder: "Add adress") { [self] text in
+            setupPlacemark(adress: text)
         }
     }
     
     @objc private func routeButtonTapped() {
-        print ("Route")
+        for index in 0...annotationArray.count - 2 {
+            createDirectionRequest(startCoordinate: annotationArray[index].coordinate,
+                                   destinationCoordinate: annotationArray[index + 1].coordinate)
+        }
+        mapView.showAnnotations(annotationArray, animated: true)
     }
     
-    @objc private func reseetButtonTapped() {
-        print ("Reset")
+    @objc private func resetButtonTapped() {
+        mapView.removeOverlays(mapView.overlays)
+        mapView.removeAnnotations(mapView.annotations)
+        annotationArray = [MKPointAnnotation]()
+        routeButton.isHidden = true
+        resetButton.isHidden = true
+        
     }
     
+    private func setupPlacemark(adress: String) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(adress) { [self] (placemarks, error) in
+            if let error = error {
+                print (error)
+                alertError(title: "Error!", message: "Something goes wrong(")
+            }
+            
+            guard let placemarks = placemarks else { return }
+            let placemark = placemarks.first
+            
+            let annotation = MKPointAnnotation()
+            annotation.title = "\(adress)"
+            guard let placemarkLocation = placemark?.location else { return }
+            annotation.coordinate = placemarkLocation.coordinate
+            
+            annotationArray.append(annotation)
+            
+            if annotationArray.count > 2 {
+                routeButton.isHidden = false
+                resetButton.isHidden = false
+            }
+            
+            mapView.showAnnotations(annotationArray, animated: true)
+        }
+    }
+    
+    private func createDirectionRequest(startCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
+        
+        let startLocation = MKPlacemark(coordinate: startCoordinate)
+        let destLocation = MKPlacemark(coordinate: destinationCoordinate)
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: startLocation)
+        request.destination = MKMapItem(placemark: destLocation)
+        request.transportType = .automobile
+        request.requestsAlternateRoutes = true
+        
+        let direction  = MKDirections(request: request)
+        direction.calculate { (response, error) in
+            if let error = error {
+                print (error)
+                return
+            }
+            guard let response = response else {
+                self.alertError(title: "Error", message: "Route is unavailable")
+                return
+            }
+            
+            var shortestRoute = response.routes[0]
+            for route in response.routes {
+                shortestRoute = (route.distance < shortestRoute.distance) ? route : shortestRoute
+            }
+            
+            self.mapView.addOverlay(shortestRoute.polyline)
+        }
+    }
 }
-
 
 extension ViewController {
     
@@ -142,3 +210,12 @@ extension ViewController {
     }
 }
 
+
+extension ViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        renderer.strokeColor = .red
+        return renderer
+    }
+}
