@@ -67,7 +67,7 @@ final class MainMapView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setConstraints()
+        configure()
         addAdressButtonTarget()
         routeButtonTarget()
         resetButtonTarget()
@@ -89,15 +89,15 @@ final class MainMapView: UIView {
             resetButton.addTarget(self, action: #selector(reseetButtonTapped), for: .touchUpInside)
         }
     
-        @objc func addAdressButtonTapped() {
+        @objc private func addAdressButtonTapped() {
             print ("Adress")
         }
     
-        @objc func routeButtonTapped() {
+        @objc private func routeButtonTapped() {
             print ("Route")
         }
     
-        @objc func reseetButtonTapped() {
+        @objc private func reseetButtonTapped() {
             print ("Reset")
         }
 }
@@ -105,7 +105,7 @@ final class MainMapView: UIView {
 
 extension MainMapView {
     
-    private func setConstraints() {
+    private func configure() {
         
         addSubview(mapView)
         NSLayoutConstraint.activate([
